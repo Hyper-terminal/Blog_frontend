@@ -32,11 +32,12 @@ const Signup = () => {
             variant="outlined"
             type="password"
           />
-
-          <Fab variant="extended">
-            <AppRegistrationIcon sx={{ mr: 1 }} />
-            Navigate
-          </Fab>
+          <div className="fab">
+            <Fab variant="extended" type="submit">
+              <AppRegistrationIcon sx={{ mr: 1 }} />
+              Sign up
+            </Fab>
+          </div>
         </form>
       </div>
     </div>
