@@ -107,6 +107,7 @@ const Signup = () => {
             label="Email"
             variant="outlined"
             type="email"
+            margin="normal"
           />
           <TextField
             onChange={handleInput}
