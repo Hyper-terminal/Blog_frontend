@@ -27,9 +27,26 @@ const Signup = () => {
 
     const { name, email, password } = userDetails;
     const user = { name, email, password };
-    console.log(user);
 
-    fetch('http://localhost:8080/signup', {
+    signup(user)
+      .then((data) => {
+        if (data.error) {
+          setUserDetails({ error: data.error });
+        } else {
+          setUserDetails({
+            name: '',
+            email: '',
+            password: '',
+            error: '',
+          })
+        }
+      })
+
+  };
+
+
+  const signup = (user) => {
+    return fetch('http://localhost:8080/api/v1/signup', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -37,9 +54,9 @@ const Signup = () => {
       },
       body: JSON.stringify(user)
     })
-    .then(res => return res.json())
-    .catch(err => console.log(err));
-  };
+      .then(res => { return res.json() })
+      .catch(err => console.log(err));
+  }
 
   return (
     <div className="flex_container">
