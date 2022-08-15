@@ -17,7 +17,6 @@ const Signup = () => {
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    // setUserDetails({ error: '' });
     setUserDetails((prevValue) => {
       return {
         ...prevValue,
