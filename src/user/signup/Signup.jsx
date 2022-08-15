@@ -3,6 +3,8 @@ import './style.scss';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const Signup = () => {
   const [userDetails, setUserDetails] = React.useState({
@@ -10,14 +12,17 @@ const Signup = () => {
     email: '',
     password: '',
     error: '',
+    open: false,
   });
 
   const handleInput = (e) => {
     const { name, value } = e.target;
+    // setUserDetails({ error: '' });
     setUserDetails((prevValue) => {
       return {
         ...prevValue,
         [name]: value,
+        error: '',
       };
     });
   };
@@ -28,22 +33,25 @@ const Signup = () => {
     const { name, email, password } = userDetails;
     const user = { name, email, password };
 
-    signup(user)
-      .then((data) => {
-        if (data.error) {
-          setUserDetails({ error: data.error });
-        } else {
-          setUserDetails({
-            name: '',
-            email: '',
-            password: '',
-            error: '',
-          })
-        }
-      })
-
+    signup(user).then((data) => {
+      if (data.error) {
+        setUserDetails((prevValue) => {
+          return {
+            ...prevValue,
+            error: data.error
+          }
+        });
+      } else {
+        setUserDetails({
+          name: '',
+          email: '',
+          password: '',
+          error: '',
+          open: true,
+        });
+      }
+    });
   };
-
 
   const signup = (user) => {
     return fetch('http://localhost:8080/api/v1/signup', {
@@ -52,16 +60,34 @@ const Signup = () => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     })
-      .then(res => { return res.json() })
-      .catch(err => console.log(err));
-  }
+      .then((res) => {
+        return res.json();
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="flex_container">
       <div className="signup_box">
         <h1>Sign Up</h1>
+
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert
+            sx={{ display: userDetails.error ? '' : 'none' }}
+            severity="error"
+          >
+            {userDetails.error}
+          </Alert>
+          <Alert
+            sx={{ display: userDetails.open ? '' : 'none' }}
+            severity="success"
+          >
+            Account created successfully ❤️. Please login to continue.
+          </Alert>
+        </Stack>
+
         <form>
           <TextField
             onChange={handleInput}
