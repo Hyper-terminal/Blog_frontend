@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.scss';
+import './signup.scss';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -37,8 +37,8 @@ const Signup = () => {
         setUserDetails((prevValue) => {
           return {
             ...prevValue,
-            error: data.error
-          }
+            error: data.error,
+          };
         });
       } else {
         setUserDetails({

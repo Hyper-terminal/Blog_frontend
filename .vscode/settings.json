@@ -99,7 +99,7 @@
   /**
    * Controls the font size in pixels.
    */
-   "editor.fontSize": 17
+  "editor.fontSize": 25
   /**
    * Controls the font weight. Accepts 'normal' and 'bold' keywords or numbers values between '100' and '900'.
    */
