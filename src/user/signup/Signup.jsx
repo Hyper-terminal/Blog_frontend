@@ -68,7 +68,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex_container">
+    <div className="signup_container">
       <div className="signup_box">
         <h1 className="signup_title">Sign Up</h1>
 

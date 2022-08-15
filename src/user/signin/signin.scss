@@ -1,11 +1,12 @@
-.flex_container {
+.singin_container {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   margin: 0;
+  height: 100vh;
 
-  .signup_box {
+  .signin_box {
     margin: 10%;
     border-radius: 1rem;
     box-shadow: 5px 5px 10px grey;

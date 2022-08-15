@@ -76,8 +76,8 @@ const Signin = () => {
   }
 
   return (
-    <div className="flex_container">
-      <div className="signup_box">
+    <div className="singin_container">
+      <div className="signin_box">
         <h1 className="signin_title">Sign In</h1>
 
         <Stack sx={{ width: '100%' }} spacing={2}>
