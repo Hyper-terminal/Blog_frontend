@@ -70,7 +70,7 @@ const Signup = () => {
   return (
     <div className="flex_container">
       <div className="signup_box">
-        <h1>Sign Up</h1>
+        <h1 className="signup_title">Sign Up</h1>
 
         <Stack sx={{ width: '100%' }} spacing={2}>
           <Alert
