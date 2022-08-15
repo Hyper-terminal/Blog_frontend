@@ -5,12 +5,40 @@ import Fab from '@mui/material/Fab';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 const Signup = () => {
+  const [userDetails, setUserDetails] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+    error: '',
+  });
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUserDetails((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    const { name, email, password } = userDetails;
+    const user = { name, email, password };
+    console.log(user);
+  };
+
   return (
     <div className="flex_container">
       <div className="signup_box">
         <h1>Sign Up</h1>
         <form>
           <TextField
+            onChange={handleInput}
+            value={userDetails.name}
+            name="name"
             fullWidth
             margin="normal"
             id="outlined-basic"
@@ -18,6 +46,9 @@ const Signup = () => {
             variant="outlined"
           />
           <TextField
+            onChange={handleInput}
+            value={userDetails.email}
+            name="email"
             fullWidth
             id="outlined-basic"
             label="Email"
@@ -25,6 +56,9 @@ const Signup = () => {
             type="email"
           />
           <TextField
+            onChange={handleInput}
+            value={userDetails.password}
+            name="password"
             fullWidth
             margin="normal"
             id="outlined-basic"
@@ -33,7 +67,7 @@ const Signup = () => {
             type="password"
           />
           <div className="fab">
-            <Fab variant="extended" type="submit">
+            <Fab variant="extended" onClick={handleClick}>
               <AppRegistrationIcon sx={{ mr: 1 }} />
               Sign up
             </Fab>
