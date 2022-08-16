@@ -14,7 +14,7 @@ const Navbar = () => {
           <ul className="app__navbar-links">
             <li className="app__flex " key="link-home">
               <div />
-              <Link className="desktop_link" to="home">
+              <Link className="desktop_link" to="/">
                 Home
               </Link>
             </li>
@@ -52,7 +52,7 @@ const Navbar = () => {
                 <Link
                   onClick={() => setToggle(false)}
                   className="mobile_link"
-                  to="home"
+                  to="/"
                 >
                   Home
                 </Link>
