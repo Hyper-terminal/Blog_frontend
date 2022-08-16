@@ -5,6 +5,7 @@ import Fab from '@mui/material/Fab';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { signup } from '../../auth/index';
 
 const Signup = () => {
   const [userDetails, setUserDetails] = React.useState({
@@ -52,20 +53,7 @@ const Signup = () => {
     });
   };
 
-  const signup = (user) => {
-    return fetch('http://localhost:8080/api/v1/signup', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => console.log(err));
-  };
+
 
   return (
     <div className="signup_container">

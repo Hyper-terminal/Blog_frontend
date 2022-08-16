@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { Navigate } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
+import { signin, authenticate } from '../../auth/index';
 
 const Signin = () => {
   const [loginDetails, setLoginDetails] = React.useState({
@@ -55,27 +56,6 @@ const Signin = () => {
     });
   };
 
-  const authenticate = (jwt, next) => {
-    if (window !== 'undefined') {
-      localStorage.setItem('jwt', JSON.stringify(jwt));
-      next();
-    }
-  };
-
-  const signin = (user) => {
-    return fetch('http://localhost:8080/api/v1/signin', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => console.log(err));
-  };
 
   if (loginDetails.redirectToReferer) {
     return <Navigate to="/" replace />;
