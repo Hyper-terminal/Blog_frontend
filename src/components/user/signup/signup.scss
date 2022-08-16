@@ -1,4 +1,4 @@
-.singin_container {
+.signup_container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,13 +11,13 @@
   background-repeat: no-repeat;
   background-size: cover;
 
-  .signin_box {
+  .signup_box {
     margin: 10%;
     border-radius: 1rem;
     box-shadow: 5px 5px 10px grey;
     padding: 2rem;
 
-    .signin_title {
+    .signup_title {
       text-align: center;
     }
   }
@@ -25,4 +25,5 @@
 
 .fab {
   text-align: center;
+  z-index: 1;
 }

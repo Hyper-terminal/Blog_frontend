@@ -1,23 +1,23 @@
 import React from 'react';
-import './signin.scss';
+import './signup.scss';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
-import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import { Navigate } from 'react-router-dom';
 
-const Signin = () => {
-  const [loginDetails, setLoginDetails] = React.useState({
+const Signup = () => {
+  const [userDetails, setUserDetails] = React.useState({
+    name: '',
     email: '',
     password: '',
     error: '',
-    redirectToReferer: false,
+    open: false,
   });
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setLoginDetails((prevValue) => {
+    setUserDetails((prevValue) => {
       return {
         ...prevValue,
         [name]: value,
@@ -29,35 +29,31 @@ const Signin = () => {
   const handleClick = (e) => {
     e.preventDefault();
 
-    const { email, password } = loginDetails;
-    const user = { email, password };
+    const { name, email, password } = userDetails;
+    const user = { name, email, password };
 
-    signin(user).then((data) => {
+    signup(user).then((data) => {
       if (data.error) {
-        setLoginDetails((prevValue) => {
+        setUserDetails((prevValue) => {
           return {
             ...prevValue,
             error: data.error,
           };
         });
       } else {
-        // authenticate
-        authenticate(data, () => {
-          setLoginDetails({ email: '', password: '', redirectToReferer: true });
+        setUserDetails({
+          name: '',
+          email: '',
+          password: '',
+          error: '',
+          open: true,
         });
       }
     });
   };
 
-  const authenticate = (jwt, next) => {
-    if (window !== 'undefined') {
-      localStorage.setItem('jwt', JSON.stringify(jwt));
-      next();
-    }
-  };
-
-  const signin = (user) => {
-    return fetch('http://localhost:8080/api/v1/signin', {
+  const signup = (user) => {
+    return fetch('http://localhost:8080/api/v1/signup', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -71,28 +67,40 @@ const Signin = () => {
       .catch((err) => console.log(err));
   };
 
-  if (loginDetails.redirectToReferer) {
-    return <Navigate to="/" replace />;
-  }
-
   return (
-    <div className="singin_container">
-      <div className="signin_box">
-        <h1 className="signin_title">Sign In</h1>
+    <div className="signup_container">
+      <div className="signup_box">
+        <h1 className="signup_title">Sign Up</h1>
 
         <Stack sx={{ width: '100%' }} spacing={2}>
           <Alert
-            sx={{ display: loginDetails.error ? '' : 'none' }}
+            sx={{ display: userDetails.error ? '' : 'none' }}
             severity="error"
           >
-            {loginDetails.error}
+            {userDetails.error}
+          </Alert>
+          <Alert
+            sx={{ display: userDetails.open ? '' : 'none' }}
+            severity="success"
+          >
+            Account created successfully ❤️. Please login to continue.
           </Alert>
         </Stack>
 
         <form>
           <TextField
             onChange={handleInput}
-            value={loginDetails.email}
+            value={userDetails.name}
+            name="name"
+            fullWidth
+            margin="normal"
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+          />
+          <TextField
+            onChange={handleInput}
+            value={userDetails.email}
             name="email"
             fullWidth
             id="outlined-basic"
@@ -103,7 +111,7 @@ const Signin = () => {
           />
           <TextField
             onChange={handleInput}
-            value={loginDetails.password}
+            value={userDetails.password}
             name="password"
             fullWidth
             margin="normal"
@@ -113,9 +121,9 @@ const Signin = () => {
             type="password"
           />
           <div className="fab">
-            <Fab variant="extended" onClick={handleClick}>
-              <LoginIcon sx={{ mr: 1 }} />
-              Sign in
+            <Fab variant="extended" sx={{ zIndex: 1 }} onClick={handleClick}>
+              <AppRegistrationIcon sx={{ mr: 1 }} />
+              Sign up
             </Fab>
           </div>
         </form>
@@ -124,4 +132,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
