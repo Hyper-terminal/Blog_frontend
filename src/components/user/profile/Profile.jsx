@@ -4,9 +4,29 @@ import { isAuthenticated } from '../../auth';
 
 const Profile = () => {
     const { userId } = useParams();
+    const [user, setUser] = React.useState({
+        user: "",
+        redirectToSignin: false
+    });
 
     React.useEffect(() => {
-        console.log(userId);
+        let id = userId;
+        fetch(`{/user/${id}}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    setUser({ user:'',redirectToSignin: true })
+                }
+                else {
+                    setUser({ user: data, redirectToSignin: false })
+                }
+            });
     });
 
     return (

@@ -1,5 +1,5 @@
 export const signin = (user) => {
-  return fetch('http://localhost:8080/api/v1/signin', {
+  return fetch('/signin', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -21,7 +21,7 @@ export const authenticate = (jwt, next) => {
 };
 
 export const signup = (user) => {
-  return fetch('http://localhost:8080/api/v1/signup', {
+  return fetch('/signup', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -40,7 +40,7 @@ export const signout = (next) => {
     localStorage.removeItem('jwt');
 
     next()
-    return fetch('http://localhost:8080/api/v1/signout', {
+    return fetch('/signout', {
       method: 'get',
     }).then(data => { data.json() })
       .catch(err => console.log(err));
