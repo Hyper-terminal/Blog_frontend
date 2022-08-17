@@ -10,30 +10,30 @@ const Profile = () => {
     });
 
     React.useEffect(() => {
-        let id = userId;
-        fetch(`{/user/${id}}`, {
+        fetch(`/user/${userId}`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${isAuthenticated().token}`
             }
-        })
-            .then(res => res.json())
+        }).then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    setUser({ user:'',redirectToSignin: true })
+                    setUser({ redirectToSignin: true })
+                } else {
+                    setUser({ user: data });
                 }
-                else {
-                    setUser({ user: data, redirectToSignin: false })
-                }
-            });
-    });
+            })
+            .catch(err => console.log(err));
+    })
 
     return (
         <div>
             <h1>Profile</h1>
             <p>Name: {isAuthenticated().user.name}</p>
             <p>Email: {isAuthenticated().user.email}</p>
+
         </div>
     )
 }
