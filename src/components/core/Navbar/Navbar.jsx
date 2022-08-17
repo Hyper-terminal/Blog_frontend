@@ -22,6 +22,15 @@ const Navbar = () => {
 
             {isAuthenticated() ?
               <>
+
+                <li className="app__flex " key="link-profile">
+                  <div />
+                  <Link className="desktop_link" to={`user/${isAuthenticated().user._id}`}>
+                    {`${isAuthenticated().user.name}'s profile`}
+                  </Link>
+                </li>
+
+
                 <li className="app__flex " key="link-signout">
                   <div />
                   <a style={{ cursor: 'pointer' }} className="desktop_link"
@@ -30,8 +39,11 @@ const Navbar = () => {
                     Sign Out
                   </a>
                 </li>
+
               </>
               : <>
+
+
                 <li className="app__flex " key="link-signin">
                   <div />
                   <Link className="desktop_link" to="signin">

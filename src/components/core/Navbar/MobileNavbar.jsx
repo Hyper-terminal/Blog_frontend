@@ -42,6 +42,16 @@ const MobileNavbar = () => {
 
                   <>
 
+                    <li className="mobile_li" key="profile">
+                      <Link
+                        onClick={() => setToggle(false)}
+                        className="mobile_link"
+                        to={`user/${isAuthenticated().user._id}`}
+                      >
+                        {`${isAuthenticated().user.name}'s profile`}
+                      </Link>
+                    </li>
+
 
                     <li className="mobile_li" key="signout">
                       <a
