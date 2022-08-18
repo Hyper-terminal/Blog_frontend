@@ -4,7 +4,7 @@ import { isAuthenticated } from '../../auth';
 
 const Profile = () => {
     const { userId } = useParams();
-    const [user, setUser] = React.useState({
+    const [userDetails, setUserDetails] = React.useState({
         user: "",
         redirectToSignin: false
     });
@@ -20,9 +20,9 @@ const Profile = () => {
         }).then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    setUser({ redirectToSignin: true })
+                    setUserDetails({ redirectToSignin: true })
                 } else {
-                    setUser({ user: data });
+                    setUserDetails({ user: data });
                 }
             })
             .catch(err => console.log(err));
@@ -33,6 +33,7 @@ const Profile = () => {
             <h1>Profile</h1>
             <p>Name: {isAuthenticated().user.name}</p>
             <p>Email: {isAuthenticated().user.email}</p>
+            <p>Joined: {new Date(userDetails.user.created).toDateString()}</p>
 
         </div>
     )
