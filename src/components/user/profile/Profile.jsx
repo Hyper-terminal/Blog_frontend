@@ -1,38 +1,38 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { isAuthenticated } from '../../auth';
+import { read } from "../apiUser";
 
 const Profile = () => {
     const { userId } = useParams();
-    const [user, setUser] = React.useState({
+    const [userDetails, setUserDetails] = React.useState({
         user: "",
         redirectToSignin: false
     });
 
+
     React.useEffect(() => {
-        fetch(`/user/${userId}`, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${isAuthenticated().token}`
-            }
-        }).then(res => res.json())
+        read(userId, isAuthenticated().jwt.token)
             .then(data => {
                 if (data.error) {
-                    setUser({ redirectToSignin: true })
+                    setUserDetails({ redirectToSignin: true })
                 } else {
-                    setUser({ user: data });
+                    setUserDetails({ user: data });
                 }
             })
             .catch(err => console.log(err));
     })
 
+    if (userDetails.redirectToSignin) {
+        return <Navigate to='signin' replace />
+    }
+
     return (
-        <div>
+        <div style={{ textAlign: 'center' }}>
             <h1>Profile</h1>
             <p>Name: {isAuthenticated().user.name}</p>
             <p>Email: {isAuthenticated().user.email}</p>
+            <p>Joined on: {new Date(userDetails.user.created).toDateString()}</p>
 
         </div>
     )
