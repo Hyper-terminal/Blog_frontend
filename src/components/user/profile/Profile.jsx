@@ -1,7 +1,6 @@
 import React from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { isAuthenticated } from '../../auth';
-import { read } from "../apiUser";
 
 const Profile = () => {
     const { userId } = useParams();
@@ -10,9 +9,15 @@ const Profile = () => {
         redirectToSignin: false
     });
 
-
     React.useEffect(() => {
-        read(userId, isAuthenticated().jwt.token)
+        fetch(`/user/${userId}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${isAuthenticated().token}`
+            }
+        }).then(res => res.json())
             .then(data => {
                 if (data.error) {
                     setUserDetails({ redirectToSignin: true })
@@ -32,7 +37,6 @@ const Profile = () => {
             <h1>Profile</h1>
             <p>Name: {isAuthenticated().user.name}</p>
             <p>Email: {isAuthenticated().user.email}</p>
-            <p>Joined on: {new Date(userDetails.user.created).toDateString()}</p>
 
         </div>
     )
