@@ -15,53 +15,42 @@ const Profile = () => {
     });
 
     React.useEffect(() => {
-        fetch(`/user/${userId}`, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${isAuthenticated().token}`
-            }
-        }).then(res => res.json())
-
-
-        React.useEffect(() => {
-            read(userId, isAuthenticated().token)
-                .then(data => {
-                    if (data.error) {
-                        setUserDetails({ redirectToSignin: true })
-                    } else {
-                        setUserDetails({ user: data });
-                    }
-                })
-                .catch(err => console.log(err));
-        }, [userId])
-
-        if (userDetails.redirectToSignin) {
-            return <Navigate to='signin' replace />
-        }
-
-        return (
-            <div style={{ textAlign: 'center' }}>
-                <h1>Profile</h1>
-
-                <img src={defaultProfile} height="100" width="100" alt="Profile Image" />
-                <p>Name: {userDetails.user.name}</p>
-                <p>Email: {userDetails.user.email}</p>
-                <p>Joined: {new Date(userDetails.user.created).toDateString()}</p>
-
-
-                {/* edit and delete button */}
-                {
-                    isAuthenticated().user._id == userDetails.user._id &&
-                    <>
-                        <Link to='user/edit'>Edit</Link>
-                        <Delete userid={userDetails.user._id} />
-                    </>
+        read(userId, isAuthenticated().token)
+            .then(data => {
+                if (data.error) {
+                    setUserDetails({ redirectToSignin: true })
+                } else {
+                    setUserDetails({ user: data });
                 }
+            })
+            .catch(err => console.log(err));
+    }, [userId])
 
-            </div >
-        )
+    if (userDetails.redirectToSignin) {
+        return <Navigate to='signin' replace />
     }
+
+    return (
+        <div style={{ textAlign: 'center' }}>
+            <h1>Profile</h1>
+
+            <img src={defaultProfile} height="100" width="100" alt="Profile Image" />
+            <p>Name: {userDetails.user.name}</p>
+            <p>Email: {userDetails.user.email}</p>
+            <p>Joined: {new Date(userDetails.user.created).toDateString()}</p>
+
+
+            {/* edit and delete button */}
+            {
+                isAuthenticated().user._id == userDetails.user._id &&
+                <>
+                    <Link to='user/edit'>Edit</Link>
+                    <Delete userid={userDetails.user._id} />
+                </>
+            }
+
+        </div >
+    )
+}
 
 export default Profile
