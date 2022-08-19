@@ -9,8 +9,7 @@ const Delete = (props) => {
     const deleteProfile = () => {
         let token = isAuthenticated().token;
         let userId = props.userid;
-        console.log(userId);
-        console.log("userId: " + userId);
+
         remove(userId, token)
             .then(data => {
                 if (data.error) {

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useParams, Link } from 'react-router-dom'
 import { isAuthenticated } from '../../auth';
 import { read } from '../apiUrl';
 import defaultProfile from "../../../assets/avatar.png";
-import Delete from '../delete profile/Delete';
+import Delete from '../delete_profile/Delete';
 
 const Profile = () => {
     const { userId } = useParams();
