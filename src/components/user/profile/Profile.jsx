@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { isAuthenticated } from '../../auth';
+import { read } from '../apiUrl';
 
 const Profile = () => {
     const { userId } = useParams();
@@ -9,15 +10,10 @@ const Profile = () => {
         redirectToSignin: false
     });
 
+
+
     React.useEffect(() => {
-        fetch(`/user/${userId}`, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${isAuthenticated().token}`
-            }
-        }).then(res => res.json())
+        read(userId,isAuthenticated().token)
             .then(data => {
                 if (data.error) {
                     setUserDetails({ redirectToSignin: true })
