@@ -1,0 +1,35 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 50px;
+
+    img {
+        height: 200px;
+        width: 200px;
+        padding: auto;
+        margin-left: 1.5rem;
+    }
+}
+
+.card-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.card-button {
+    margin-left: 21%;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: gray;
+    font-size: 1.2rem;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        color: darkblue;
+    }
+}

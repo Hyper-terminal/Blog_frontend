@@ -6,6 +6,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { signup } from '../../auth/index';
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [userDetails, setUserDetails] = React.useState({
@@ -71,7 +72,8 @@ const Signup = () => {
             sx={{ display: userDetails.open ? '' : 'none' }}
             severity="success"
           >
-            Account created successfully ❤️. Please login to continue.
+            Account created successfully ❤️. Please <Link to="/signin" >login</Link> to continue.
+
           </Alert>
         </Stack>
 

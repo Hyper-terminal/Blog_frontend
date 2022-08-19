@@ -20,8 +20,17 @@ const Navbar = () => {
               </Link>
             </li>
 
+
+
             {isAuthenticated() ?
               <>
+
+                <li className="app__flex " key="link-users">
+                  <div />
+                  <Link className="desktop_link" to="/users">
+                    Users
+                  </Link>
+                </li>
 
                 <li className="app__flex " key="link-profile">
                   <div />
