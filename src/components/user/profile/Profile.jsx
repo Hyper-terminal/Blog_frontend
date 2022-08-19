@@ -1,8 +1,6 @@
 import React from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { isAuthenticated } from '../../auth';
-import { Link, useParams } from 'react-router-dom'
-import { isAuthenticated } from '../../auth';
 import { read } from '../apiUrl';
 import defaultProfile from "../../../assets/avatar.png";
 import Delete from '../delete profile/Delete';
