@@ -42,7 +42,7 @@ const Profile = () => {
             {
                 isAuthenticated().user._id == userDetails.user._id &&
                 <>
-                    <Link to='user/edit'>Edit</Link>
+                    <Link to='/edit'>Edit</Link>
                     <Delete userid={userDetails.user._id} />
                 </>
             }

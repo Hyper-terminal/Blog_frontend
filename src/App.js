@@ -17,7 +17,7 @@ export default function App() {
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/user/:userId" element={<Profile />} />
-        <Route exact path='/user/edit/' element={<EditProfile/>} />
+        <Route exact path='/edit' element={<EditProfile/>} />
       </Routes>
     </div>
   );
