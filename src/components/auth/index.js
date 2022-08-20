@@ -1,5 +1,5 @@
-export const signin = (user) => {
-  return fetch('/signin', {
+export const signin = async (user) => {
+  return await fetch('/signin', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -13,15 +13,15 @@ export const signin = (user) => {
     .catch((err) => console.log(err));
 };
 
-export const authenticate = (jwt, next) => {
+export const authenticate =  (jwt, next) => {
   if (window !== 'undefined') {
     localStorage.setItem('jwt', JSON.stringify(jwt));
     next();
   }
 };
 
-export const signup = (user) => {
-  return fetch('/signup', {
+export const signup = async (user) => {
+  return await fetch('/signup', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -35,12 +35,12 @@ export const signup = (user) => {
     .catch((err) => console.log(err));
 };
 
-export const signout = (next) => {
+export const signout = async (next) => {
   if (typeof Window !== 'undefined') {
     localStorage.removeItem('jwt');
 
     next()
-    return fetch('/signout', {
+    return await fetch('/signout', {
       method: 'get',
     }).then(data => { data.json() })
       .catch(err => console.log(err));

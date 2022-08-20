@@ -1,36 +1,20 @@
 import React from "react";
 import "./EditProfile.scss";
-import { read } from "../apiUrl";
+import { update } from "../apiUrl";
 import { isAuthenticated } from "../../auth";
-import { useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const EditProfile = () => {
-	let {userId} = useParams();
+	let userId = isAuthenticated().user._id;
 
 	const [editDetails, setEditDetails] = React.useState({
-		id: "",
 		name: "",
 		email: "",
 		password: "",
-		redirectToSignin: false
+		error: "",
 	});
 
-	React.useEffect(() => {
-		let token = isAuthenticated().token;
-		read(userId, token)
-			.then((data) => {
-				if (data.error) {
-					setEditDetails({ redirectToSignin: true });
-				} else {
-					setEditDetails({
-						id: data._id,
-						name: data.name,
-						email: data.email,
-						password: data.password,
-					});
-				}
-			})
-	}, []);
+	const [referer, setReferer] = React.useState(false);
 
 	const handleInput = (e) => {
 		const { id, value } = e.target;
@@ -41,6 +25,29 @@ const EditProfile = () => {
 			};
 		});
 	};
+
+	const handleclick = (e) => {
+		e.preventDefault();
+		const { name, email, password } = editDetails;
+		let user = {
+			name: name || undefined,
+			email: email || undefined,
+			password: password || undefined,
+		};
+		update(userId, isAuthenticated().token, user)
+			.then((data) => {
+				if (data.error) {
+					setEditDetails({ error: data.error });
+				} else {
+					setReferer(true);
+				}
+			})
+			.catch((err) => console.log(err));
+	};
+
+	if (referer) {
+		return <Navigate to={`/user/${userId}`} replace />;
+	}
 
 	return (
 		<div>
@@ -90,7 +97,12 @@ const EditProfile = () => {
 				</div>
 
 				<div style={{ display: "flex", justifyContent: "center" }}>
-					<button className="edit_profile-button">Submit</button>
+					<button
+						onClick={handleclick}
+						className="edit_profile-button"
+					>
+						UPDATE
+					</button>
 				</div>
 			</form>
 		</div>
