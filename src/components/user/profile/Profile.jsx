@@ -28,7 +28,6 @@ const Profile = () => {
         return <Navigate to='signin' replace />
     }
 
-let user_id = userDetails.user._id;
     return (
 
         <div style={{ textAlign: 'center' }}>
@@ -39,8 +38,6 @@ let user_id = userDetails.user._id;
             <p>Email: {userDetails.user.email}</p>
             <p>Joined: {new Date(userDetails.user.created).toDateString()}</p>
 
-
-            <p>{user_id}</p>
             {/* edit and delete button */}
             {
                 isAuthenticated().user._id == userDetails.user._id &&

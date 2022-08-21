@@ -1,5 +1,5 @@
-export const read = async (userId, token) => {
-    return await fetch(`/user/${userId}`, {
+export const read =  (userId, token) => {
+    return  fetch(`/user/${userId}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
@@ -11,14 +11,14 @@ export const read = async (userId, token) => {
         .catch((err) => console.log(err));
 };
 
-export const list = async () => {
-    return await fetch("/user", {
+export const list =  () => {
+    return  fetch("/user", {
         method: "GET",
     }).then((res) => res.json());
 };
 
-export const remove = async (userId, token) => {
-    return await fetch(`/user/${userId}`, {
+export const remove =  (userId, token) => {
+    return  fetch(`/user/${userId}`, {
         method: "Delete",
         headers: {
             Accept: "application/json",
@@ -30,8 +30,8 @@ export const remove = async (userId, token) => {
         .catch((err) => console.log(err));
 };
 
-export const update = async (userId, token, user) => {
-    return await fetch(`/user/${userId}`, {
+export const update =  (userId, token, user) => {
+    return  fetch(`/user/${userId}`, {
         method: "put",
         headers: {
             Accept: "application/json",
